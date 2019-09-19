@@ -40,4 +40,17 @@ class HeroesController extends ResourceController {
 
     return Response.ok(insertedHero);
   }
+
+  @Operation.delete('id')
+  Future<Response> deleteHeroByID(@Bind.path('id') int id) async {
+    final heroQuery = Query<Hero>(context)
+      ..where((h) => h.id).equalTo(id);
+
+    final hero = await heroQuery.delete();
+
+    if (hero == null) {
+      return Response.notFound();
+    }
+    return Response.ok(hero);
+  }
 }
