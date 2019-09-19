@@ -1,4 +1,5 @@
 import 'heroes.dart';
+import 'controllers/heroes_controller.dart';
 
 /// This type initializes an application.
 ///
@@ -25,6 +26,10 @@ class HeroesChannel extends ApplicationChannel {
   @override
   Controller get entryPoint {
     final router = Router();
+
+    router
+        .route('/heroes/[:id]')
+        .link(() => HeroesController());
 
     // Prefer to use `link` instead of `linkFunction`.
     // See: https://aqueduct.io/docs/http/request_controller/
